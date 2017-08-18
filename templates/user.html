@@ -1,0 +1,198 @@
+<!--
+*
+*  INSPINIA - Responsive Admin Theme
+*  version 2.7
+*
+-->
+
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>日志服务器</title>
+
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- Toastr style -->
+    <link href="/static/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="/static/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+
+                        <div class="logo-element">
+                            IN+
+                        </div>
+                    </li>
+                    <li >
+                        <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">基础服务组日志</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li ><a href="{%url 'mistakelogshow'%}">错误日志查看</a></li>
+                            <li><a href="#">历史日志查询</a></li>
+                            <li><a href="#">日志统计</a></li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">网络日志</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li ><a href="#">错误日志查看</a></li>
+                            <li><a href="#">历史日志查询</a></li>
+                            <li><a href="#">日志统计</a></li>
+
+                        </ul>
+                    </li>
+                     <li class="active">
+                        <a href="#"><i class="fa fa-table"></i> <span class="nav-label">后台管理</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="{% url 'usergroup' %}">用户组管理</a></li>
+                            <li><a href="{% url 'user' %}">用户管理</a></li>
+                            <li><a href="{% url 'host' %}">主机管理</a></li>
+
+                        </ul>
+                    </li>
+
+   
+        </nav>
+
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <span class="m-r-sm text-muted welcome-message">Welcome to 雷霆基础日志服务器</span>
+                </li>
+ 
+                <li>
+                    <a href="#">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </a>
+                </li>
+                <li>
+                    <a class="right-sidebar-toggle">
+                        <i class="fa fa-tasks"></i>
+                    </a>
+                </li>
+
+            </ul>
+
+
+        </nav>
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>用户管理</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover dataTables-example" >
+                    <thead>
+                    <tr>
+                        <th>用户名</th>
+                        <th>用户主机</th>
+                        <th>联系方式</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for x in user %}
+                    <tr class="gradeX">
+                        <td>{{ x.username }}</td>
+                        <td>{{ x.userhost }}</td>
+                        <td>{{ x.telephone }}</td>
+                        <td>
+                           <a class="btn btn-info " href="{% url 'index' %}" type="button"><i class="fa fa-paste"></i> 修改</a>
+                            <a class="btn btn-warning " href="{% url 'index' %}" type="button"><i class="fa fa-warning"></i> <span class="bold">删除</span></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+
+                    </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+        </div>
+        </div>
+
+    <!-- Mainly scripts -->
+
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <script src="/static/js/plugins/dataTables/datatables.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/static/js/inspinia.js"></script>
+    <script src="/static/js/plugins/pace/pace.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.dataTables-example').DataTable({
+                pageLength: 25,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel', title: 'ExampleFile'},
+                    {extend: 'pdf', title: 'ExampleFile'},
+
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
